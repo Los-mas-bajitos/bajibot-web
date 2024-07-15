@@ -91,7 +91,7 @@ function sendMessage() {
     if (!userInput.trim()) {
         return;
     }
-    
+
     appendMessage('me: ' + userInput, 'user');
     document.getElementById('user-input').value = '';
 
@@ -99,19 +99,21 @@ function sendMessage() {
         message: userInput
     };
 
-    fetch('http://localhost:5000/chat', {
+    let endpoint = 'http://localhost:5000/chat';
+
+    fetch(endpoint, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify(data),
     })
     .then(response => response.json())
     .then(data => {
         if (data.response) {
-            console.log(data.response);
-            appendMessage('bot: '+data.response.message, 'bot');
+            let formattedMessage = formatResponse(data.response);
+            appendMessage('bot: ' + formattedMessage, 'bot');
         } else {
             appendMessage('Error: ' + data.error, 'bot');
         }
@@ -129,6 +131,45 @@ function appendMessage(message, sender) {
     messageDiv.textContent = message;
     chatBody.appendChild(messageDiv);
     chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function formatResponse(response) {
+    console.log(JSON.stringify(response));
+    if (response.ingredients) {
+        return formatRecipeResponse(response);
+    } else if (Array.isArray(response) && response[0].description) {
+        return formatRecommendationResponse(response);
+    } else {
+        return formatCommonResponse(response);
+    }
+}
+
+function formatCommonResponse(response) {
+    return response.message;
+}
+
+function formatRecommendationResponse(recommendations) {
+    let stringBuilder = "";
+    recommendations.forEach(recommendation => {
+        console.log(recommendation);
+        stringBuilder += `Nombre: ${recommendation.recipe_name}`;
+        stringBuilder += `\n`;
+        stringBuilder += `Descripcion:${recommendation.description}`;
+        stringBuilder += `\n`;
+    });
+    return stringBuilder;
+}
+
+function formatRecipeResponse(response) {
+    let stringBuilder = `Nombre: ${response.recipe_name}\nIngredientes:\n`;
+    response.ingredients.forEach(ingredient => {
+        stringBuilder += `${ingredient}\n`;
+    });
+    stringBuilder += `\nInstrucciones:\n`;
+    response.instructions.forEach(instruction => {
+        stringBuilder += `${instruction}\n`;
+    });
+    return stringBuilder;
 }
 
 function returnToLogin() {
