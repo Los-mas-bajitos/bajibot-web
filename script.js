@@ -1,15 +1,15 @@
 function login(){
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-    data={
+    let data = {
         username: username,
         password: password
     }
 
     console.log(data);
 
-    fetch('http://localhost:5000/user/login', {
+    fetch('https://bajibot-backend.onrender.com/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -19,7 +19,7 @@ function login(){
     .then(response => response.json())
     .then(data => {
         console.log(data.status)
-        if(data.status == 200){
+        if(data.status === 200){
             alert(data.message);
             localStorage.setItem('token', data.token);
             window.location.href = "chatbot.html";
@@ -48,7 +48,7 @@ function register() {
 
     console.log(data);
 
-    fetch('http://localhost:5000/user/insert', {
+    fetch('https://bajibot-backend.onrender.com/user/insert', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ function sendMessage() {
         message: userInput
     };
 
-    let endpoint = 'http://localhost:5000/chat';
+    let endpoint = 'https://bajibot-backend.onrender.com/chat';
 
     fetch(endpoint, {
         method: 'POST',
