@@ -33,7 +33,7 @@
             return;
         }
 
-        appendMessage('Yo: ' + userInput, 'user');
+        appendMessage(userInput, 'user');
         document.getElementById('user-input').value = '';
 
         const data = {
@@ -54,7 +54,7 @@
 
             if (json.response) {
                 const formattedMessage = formatResponse(json.response);
-                appendMessage('bot: ' + formattedMessage, 'bot');
+                appendMessage(formattedMessage, 'bot');
             } else {
                 appendMessage('Error: ' + json.error, 'bot');
             }
