@@ -8,23 +8,33 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="chat-box">
-                    <div class="chat-header">
-                        <h3>FoodBot</h3>
-                    </div>
-                    <div class="chat-body" id="chat-body"></div>
-                    <div class="chat-footer">
-                        <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
-                        <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
-                    </div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <button id="show-recommendations-btn" class="btn btn-secondary btn-block">Ver Recomendaciones</button>
+            <button id="show-chat-btn" class="btn btn-secondary btn-block" style="display: none;" onclick="toggleView('chat')">Ver Chat</button>
+
+            <div id="recommendations" style="display: none;">
+                <h3>Recomendaciones de Recetas</h3>
+                <div id="recipe-list" class="list-group text-black">
+                    <!-- Aquí se insertarán las recomendaciones -->
+                </div>
+            </div>
+
+            <div class="chat-box" id="chat-box">
+                <div class="chat-header">
+                    <h3>FoodBot</h3>
+                </div>
+                <div class="chat-body" id="chat-body"></div>
+                <div class="chat-footer">
+                    <input type="text" id="user-input" class="form-control" placeholder="Escribe tu mensaje...">
+                    <button class="btn btn-primary" onclick="sendMessage()">Enviar</button>
                 </div>
             </div>
         </div>
-        <button class="btn btn-secondary" onclick="returnToLogin()">REGRESAR</button>
     </div>
-    <script src="script.js"></script>
+    <button class="btn btn-secondary" onclick="returnToLogin()">REGRESAR</button>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
