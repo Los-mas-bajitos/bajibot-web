@@ -10,7 +10,7 @@ function login(){
     }
 
     console.log(data);
-    fetch('http://127.0.0.1:5000/user/login', {
+    fetch('https://bajibot-backend.onrender.com/user/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -63,7 +63,7 @@ function register() {
     };
 
     // Lógica para enviar los datos al servidor
-    fetch('http://127.0.0.1:5000/user/insert', {
+    fetch('https://bajibot-backend.onrender.com/user/insert', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -116,7 +116,7 @@ function sendMessage() {
         message: userInput
     };
 
-    let endpoint = 'http://127.0.0.1:5000/chat';
+    let endpoint = 'https://bajibot-backend.onrender.com/chat';
 
     fetch(endpoint, {
         method: 'POST',
@@ -194,7 +194,7 @@ function returnToLogin() {
 }
 
 function displayRecommendations() {
-    let endpoint = 'http://127.0.0.1:5000/recommendations';
+    let endpoint = 'https://bajibot-backend.onrender.com/recommendations';
 
     usuario = JSON.parse(localStorage.getItem('user'));
 
